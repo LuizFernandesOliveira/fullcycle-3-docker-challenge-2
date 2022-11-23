@@ -19,9 +19,9 @@ const addRoutes = (app) => {
 
       res.send(`
         <h1>Full Cycle Rocks!</h1>
-        <ol>
+        <ul>
           ${!!result.length ? result.map(people => `<li>${people.name}</li>`).join('') : ''}
-        </ol>
+        </ul>
       `)
     })
 
