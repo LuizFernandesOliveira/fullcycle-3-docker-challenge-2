@@ -1,0 +1,35 @@
+version: '3'
+services:
+  proxyreverse:
+    container_name: nginx-proxyreverse
+    build:
+      context: ./proxyreverse/nginx
+    restart: always
+    ports: 
+      - '8080:80'
+    networks:
+      - nodenetwork
+
+  api:
+    container_name: node-api
+    build:
+      context: ./api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api:/app
+    networks:
+      - nodenetwork
+
+  database:
+    container_name: mysql-database
+    build: 
+      context: ./database
+    restart: always
+    tty: true
+    networks:
+      - nodenetwork
+
+networks:
+  nodenetwork:
+    driver: bridge
