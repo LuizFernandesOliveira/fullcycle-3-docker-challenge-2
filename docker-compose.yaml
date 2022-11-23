@@ -9,17 +9,22 @@ services:
       - '8080:80'
     networks:
       - nodenetwork
+    depends_on:
+      - api
 
   api:
     container_name: node-api
     build:
       context: ./api
+    entrypoint: dockerize -wait tcp://database:3306 yarn serve
     ports:
       - "3000:3000"
     volumes:
       - ./api:/app
     networks:
       - nodenetwork
+    depends_on:
+      - database
 
   database:
     container_name: mysql-database
